@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyNews</string>
+
+    // Menu strings
+    <string name="search">search</string>
+    <string name="notifications">notifications</string>
+    <string name="help">help</string>
+    <string name="about">about</string>
+</resources>
