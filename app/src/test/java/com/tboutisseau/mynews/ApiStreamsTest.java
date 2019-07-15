@@ -6,10 +6,14 @@ import com.tboutisseau.mynews.Models.MostPopular;
 import com.tboutisseau.mynews.Models.TopStories;
 import com.tboutisseau.mynews.Utils.NyTimesApiStreams;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
@@ -22,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(JUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ApiStreamsTest {
 
 
@@ -31,6 +35,9 @@ public class ApiStreamsTest {
     public static void setUpRxSchedulers() {
         RxAndroidPlugins.setInitMainThreadSchedulerHandler(scheduler -> Schedulers.trampoline());
     }
+
+    @Mock
+    TopStories.Result mMockedResult;
 
     @Test
     public void streamTopStoriesArticlesTest() {
@@ -46,7 +53,7 @@ public class ApiStreamsTest {
         assertNotEquals(0, articleTopTestObserver.values().size());
 
         TopStories article = articleTopTestObserver.values().get(0);
-        TopStories.Results result = article.getResults().get(0);
+        TopStories.Result result = article.getResults().get(0);
 
         assertEquals("OK", article.getStatus());
         assertEquals(path, article.getSection());
@@ -78,13 +85,35 @@ public class ApiStreamsTest {
 
         assertEquals("OK", popularArticle.getStatus());
 
-
         assertNotNull(result.getTitle());
         assertNotNull(result.getByline());
         assertNotNull(result.getSection());
         assertNotNull(result.getUrl());
         assertNotNull(result.getPublishedDate());
 
+    }
+
+
+    @Test
+    public void givenTitleMethodMocked_WhenGetTitleInvoked_ThenMockValueReturned() {
+
+        Mockito.when(mMockedResult.getTitle()).thenReturn("This is not a headline");
+
+        String title = mMockedResult.getTitle();
+
+        Assert.assertEquals("This is not a headline", title);
+        Mockito.verify(mMockedResult).getTitle();
+    }
+
+    @Test
+    public void givenUrlMethodMocked_WhenGetUrlInvoked_ThenMockValueReturned() {
+
+        Mockito.when(mMockedResult.getUrl()).thenReturn("https://www.lequipe.fr");
+
+        String url = mMockedResult.getUrl();
+
+        Assert.assertEquals("https://www.lequipe.fr", url);
+        Mockito.verify(mMockedResult).getUrl();
     }
 
 }

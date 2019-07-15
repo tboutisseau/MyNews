@@ -9,7 +9,7 @@ public class TopStories {
 
     @Expose
     @SerializedName("results")
-    private List<Results> results;
+    private List<Result> results;
     @Expose
     @SerializedName("num_results")
     private int num_results;
@@ -26,11 +26,11 @@ public class TopStories {
     @SerializedName("status")
     private String status;
 
-    public List<Results> getResults() {
+    public List<Result> getResults() {
         return results;
     }
 
-    public void setResults(List<Results> results) {
+    public void setResults(List<Result> results) {
         this.results = results;
     }
 
@@ -74,7 +74,7 @@ public class TopStories {
         this.status = status;
     }
 
-    public static class Results {
+    public static class Result {
         @Expose
         @SerializedName("short_url")
         private String short_url;
