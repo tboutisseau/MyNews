@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public abstract class TopStories {
+public class TopStories {
 
     @Expose
     @SerializedName("results")
