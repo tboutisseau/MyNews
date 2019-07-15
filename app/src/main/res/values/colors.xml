@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#1ebbd2</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#1696a5</color>
     <color name="colorAccent">#f7e53b</color>
+
+    <!-- TabLayout colors -->
+    <color name="tabSelected">#ffffff</color>
+    <color name="TabNotSelected">#BFFFFFFF</color>
 </resources>
