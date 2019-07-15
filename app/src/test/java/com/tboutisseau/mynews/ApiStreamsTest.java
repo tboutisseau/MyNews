@@ -63,10 +63,27 @@ public class ApiStreamsTest {
     @Test
     public void streamMostPopularArticleTest() {
 
-        String path = "viewed/7/";
-
-        Observable<MostPopular> articleMostPopularObservable = NyTimesApiStreams.streamMostPopularArticles(path);
+        Observable<MostPopular> articleMostPopularObservable = NyTimesApiStreams.streamMostPopularArticles();
         TestObserver<MostPopular> articleMostPopularObserver = new TestObserver<>();
+
+        articleMostPopularObservable.subscribeWith(articleMostPopularObserver)
+                .assertNoErrors()
+                .assertNoTimeout()
+                .awaitTerminalEvent();
+
+        assertNotEquals(0, articleMostPopularObserver.values().size());
+
+        MostPopular popularArticle = articleMostPopularObserver.values().get(0);
+        MostPopular.Result result = popularArticle.getResults().get(0);
+
+        assertEquals("OK", popularArticle.getStatus());
+
+
+        assertNotNull(result.getTitle());
+        assertNotNull(result.getByline());
+        assertNotNull(result.getSection());
+        assertNotNull(result.getUrl());
+        assertNotNull(result.getPublishedDate());
 
     }
 

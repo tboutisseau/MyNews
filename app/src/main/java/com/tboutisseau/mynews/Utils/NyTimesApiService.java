@@ -1,5 +1,6 @@
 package com.tboutisseau.mynews.Utils;
 
+import com.tboutisseau.mynews.Models.MostPopular;
 import com.tboutisseau.mynews.Models.TopStories;
 
 import io.reactivex.Observable;
@@ -20,6 +21,9 @@ public interface NyTimesApiService {
     @GET("topstories/v2/{section}.json")
     Observable<TopStories> getTopStoriesArticles(@Path("section") String subject, @Query("api-key") String api_key);
 
+    // Makes the http request to fetch results on MostPopular API for the most viewed articles in the last 7 days
+    @GET("mostpopular/v2/viewed/7.json")
+    Observable<MostPopular> getMostPopularArticles(@Query("api-key") String api_key);
 
     // Configures Retrofit with the base url, the Gson converter and the RxJava call Adapter
     Retrofit retrofit = new Retrofit.Builder()

@@ -21,7 +21,11 @@ public class NyTimesApiStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
-    public static Observable<MostPopular> streamMostPopularArticles(String path) {
-        return null;
+    // Stream to fetch articles from the Most Popular API
+    public static Observable<MostPopular> streamMostPopularArticles() {
+        return mNyTimesApiService.getMostPopularArticles(NyTimesApiService.apiKey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(10, TimeUnit.SECONDS);
     }
 }
